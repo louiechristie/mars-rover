@@ -270,5 +270,17 @@ describe("Test rover", () => {
       const output = execute(input);
       assert.equal(output, "2:3:N");
     });
+
+    it("given a grid with no obstacles, input MMMMMMMMMM gives output 0:0:N", () => {
+      const input = "MMMMMMMMMM";
+      const output = execute(input);
+      assert.equal(output, "0:0:N");
+    });
+
+    it("given a grid with no obstacles, input RMMLM gives output 2:1:N", () => {
+      const input = "RMMLM";
+      const output = execute(input);
+      assert.equal(output, "2:1:N");
+    });
   });
 });
