@@ -137,19 +137,26 @@ const doCommand = (state: State, command: Command): State => {
 const execute = (commands: string): string => {
   let state = initialState;
 
+  if (typeof commands !== "string") {
+    throw new Error(
+      `${commands} is not a valid input commands, must be a string of: '${Object.values<string>(
+        Command
+      ).join("', '")}' e.g. MMRMLM`
+    );
+  }
+
   if (commands.length) {
     const commandArray = commands.split("");
 
     commandArray.forEach((command) => {
-      if (Object.values<string>(Command).includes(command)) {
-        state = doCommand(state, command as Command);
-      } else {
+      if (!Object.values<string>(Command).includes(command)) {
         throw new Error(
           `${command} is not a valid input command, must be one of: '${Object.values<string>(
             Command
           ).join("', '")}'`
         );
       }
+      state = doCommand(state, command as Command);
     });
 
     return `${state.position.x}:${state.position.y}:${state.direction}`;

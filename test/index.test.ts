@@ -310,5 +310,19 @@ describe("Test rover", () => {
         }
       );
     });
+
+    it("should throw and error if given input is not a string", () => {
+      const input = 1;
+      assert.throws(
+        () => {
+          // @ts-ignore
+          return execute(input);
+        },
+        {
+          message:
+            "1 is not a valid input commands, must be a string of: 'M', 'L', 'R' e.g. MMRMLM",
+        }
+      );
+    });
   });
 });
