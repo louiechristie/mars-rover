@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "nodenext",
+    "target": "es2022",
+    "module": "es2022",
     "rewriteRelativeImportExtensions": true,
     "verbatimModuleSyntax": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "moduleResolution": "bundler"
   }
 }
