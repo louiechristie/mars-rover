@@ -15,6 +15,12 @@ export type State = {
   direction: Direction;
 };
 
+export enum Command {
+  Move = "M",
+  TurnLeft = "L",
+  TurnRight = "R",
+}
+
 const initialState: State = {
   position: { x: 0, y: 0 },
   direction: Direction.North,
@@ -114,7 +120,7 @@ export const turnLeft = (state: State): State => {
   return afterState;
 };
 
-const doCommand = (state: State, command: string): State => {
+const doCommand = (state: State, command: Command): State => {
   switch (command) {
     case "M": {
       return move(state);
@@ -128,14 +134,22 @@ const doCommand = (state: State, command: string): State => {
   }
 };
 
-const execute = (command: string): string => {
+const execute = (commands: string): string => {
   let state = initialState;
 
-  if (command.length) {
-    const commandArray = command.split("");
+  if (commands.length) {
+    const commandArray = commands.split("");
 
     commandArray.forEach((command) => {
-      state = doCommand(state, command);
+      if (Object.values<string>(Command).includes(command)) {
+        state = doCommand(state, command as Command);
+      } else {
+        throw new Error(
+          `${command} is not a valid input command, must be one of: '${Object.values<string>(
+            Command
+          ).join("', '")}'`
+        );
+      }
     });
 
     return `${state.position.x}:${state.position.y}:${state.direction}`;

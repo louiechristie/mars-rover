@@ -283,4 +283,32 @@ describe("Test rover", () => {
       assert.equal(output, "2:1:N");
     });
   });
+
+  describe("Catch bad input", () => {
+    it("should throw and error if given bad input", () => {
+      const input = "X";
+      assert.throws(
+        () => {
+          execute(input);
+        },
+        {
+          message:
+            "X is not a valid input command, must be one of: 'M', 'L', 'R'",
+        }
+      );
+    });
+
+    it("should throw and error if given input with invalid command in middle MMMMRMLMIMMM", () => {
+      const input = "MMMMRMLMIMMM";
+      assert.throws(
+        () => {
+          execute(input);
+        },
+        {
+          message:
+            "I is not a valid input command, must be one of: 'M', 'L', 'R'",
+        }
+      );
+    });
+  });
 });
